@@ -33,7 +33,7 @@ flowchart LR
   GraphQLServer -->|Response| Client
 `
 
-+----------+       (1. Single GraphQL Query)       +---------------------+
++----------+       (1. Single GraphQL Query)      +---------------------+
 |          | -----------------------------------> |                     |
 |  Client  |                                      |  GraphQL API        |
 | (Web/App)|                                      |  Gateway / Server   |
@@ -53,5 +53,6 @@ flowchart LR
                  +--------------------+-------------------+
                                       |
                        (4. Data aggregated by GraphQL)
+
 
 
