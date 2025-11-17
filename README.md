@@ -45,22 +45,23 @@ flowchart LR
   GraphQLServer -->|Response| Client
 `
 
-Sequence (sederhana):
-
-mermaid
-sequenceDiagram
-  participant C as Client
-  participant G as GraphQL Gateway
-  participant U as User Service
-  participant O as Order Service
-  participant I as Inventory Service
-
-  C->>G: Query { user(id:1) {name, orders{items}}}
-  G->>U: REST /users/1
-  U-->>G: {id:1, name:"Eza"}
-  G->>O: gRPC getOrders(userId=1)
-  O-->>G: [{orderId:11, items:[...]}]
-  G->>I: check stock
-  I-->>G: {itemId:..., available:true}
-  G-->>C: Aggregated response
----
++----------+       (1. Single GraphQL Query)       +---------------------+
+|          | -----------------------------------> |                     |
+|  Client  |                                      |  GraphQL API        |
+| (Web/App)|                                      |  Gateway / Server   |
+|          | <----------------------------------- |                     |
++----------+      (5. Single JSON Response)      +---------------------+
+                                                          |
+                                      (2. Resolvers parse query & make IPC calls)
+                                                          |
+                 +--------------------+-------------------+--------------------+
+                 | (IPC: gRPC)        | (IPC: REST)       | (IPC: REST/gRPC)   |
+                 V                    V                   V
+         +---------------+    +---------------+   +----------------+
+         | User Service  |    | Order Service |   | Product Service|
+         +---------------+    +---------------+   +----------------+
+                 | (3. Data)          | (3. Data)         | (3. Data)
+                 |                    |                   |
+                 +--------------------+-------------------+
+                                      |
+                       (4. Data aggregated by GraphQL)
