@@ -65,3 +65,6 @@ flowchart LR
                  +--------------------+-------------------+
                                       |
                        (4. Data aggregated by GraphQL)
+
+
+                       
