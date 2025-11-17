@@ -20,19 +20,13 @@ Diagram (mermaid):
 
 ```mermaid
 flowchart LR
-    Client[Client Aplikasi] -->|GraphQL Query| Gateway[GraphQL Gateway]
-
-    subgraph Microservices
-        UserService[User Service]
-        ProductService[Product Service]
-        InventoryService[Inventory Service]
-        OrderService[Order Service]
-    end
-
-    Gateway -->|REST/gRPC| UserService
-    Gateway -->|REST| ProductService
-    Gateway -->|gRPC| InventoryService
-    Gateway -->|RPC/DB| OrderService
+  Client -->|GraphQL Query| GraphQLServer[GraphQL Server / Gateway]
+  GraphQLServer -->|HTTP/gRPC| UserService[User Service]
+  GraphQLServer -->|HTTP/gRPC| OrderService[Order Service]
+  GraphQLServer -->|AMQP / Kafka| InventoryService[Inventory Service]
+  InventoryService -->|Event| WarehouseService[Warehouse Service]
+  GraphQLServer -->|Response| Client
+`
 
 +----------+       (1. Single GraphQL Query)       +---------------------+
 |          | -----------------------------------> |                     |
@@ -54,6 +48,4 @@ flowchart LR
                  +--------------------+-------------------+
                                       |
                        (4. Data aggregated by GraphQL)
-
-
 
