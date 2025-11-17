@@ -10,13 +10,15 @@
 - *Synchronous replication* → menjunjung konsistensi (C), dapat mengurangi availability saat replica tidak hadir (memilih C+P).
 - *Asynchronous replication* → mempercepat availability (A) dan membiarkan replica mengejar sinkronisasi kemudian (BASE / eventual consistency).
 
+---
+
 ## 2) GraphQL & komunikasi antar-proses
 
 GraphQL bertindak sebagai *orchestrator/gateway* yang menerima satu query dari client dan melakukan beberapa panggilan antar-microservice (HTTP/gRPC/AMQP) untuk mengumpulkan data.
 
 Diagram (mermaid):
 
-mermaid
+```mermaid
 flowchart LR
   Client -->|GraphQL Query| GraphQLServer[GraphQL Server / Gateway]
   GraphQLServer -->|HTTP/gRPC| UserService[User Service]
@@ -48,5 +50,3 @@ flowchart LR
                        (4. Data aggregated by GraphQL)
 
 
-
-                       
