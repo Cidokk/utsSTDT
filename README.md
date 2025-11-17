@@ -1,4 +1,9 @@
+NAMA : TEGAR LINDUAJI NUSANTARA
+NIM : 245410052 
+IF 2
+
 # utsSTDT
+
 
 ## 1) Teorema CAP dan BASE
 
@@ -48,4 +53,5 @@ flowchart LR
                  +--------------------+-------------------+
                                       |
                        (4. Data aggregated by GraphQL)
+
 
